@@ -12,9 +12,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.hb.period.database.DataManager;
+import com.hb.period.database.DatabaseHelper;
+import com.hb.period.entities.Lady;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
+
+import java.sql.SQLException;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    DataManager dataManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +45,25 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        Lady lady = new Lady();
+        lady.setCycleLength(30);
+        lady.setPeriodLength(7);
+
+        dataManager = new DataManager(this);
+
+
+        dataManager.createLady(lady);
+
+        Toast.makeText(this, dataManager.getLady().getCycleLength() + "", Toast.LENGTH_LONG).show();
+
     }
 
     @Override
@@ -98,4 +122,15 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+		/*
+         * You'll need this in your class to release the helper when done.
+		 */
+    }
+
+
 }
