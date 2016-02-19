@@ -6,7 +6,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.hb.period.entities.DateStatus;
 import com.hb.period.entities.Lady;
+import com.hb.period.entities.Mood;
+import com.hb.period.entities.Record;
+import com.hb.period.entities.Symptom;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
@@ -21,6 +25,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 	// DAO objects
 	private Dao<Lady, Integer> ladyDAO = null;
+	private Dao<Record, Integer> recordDAO = null;
+	private Dao<DateStatus, Integer> dateStatusDAO = null;
+	private Dao<Mood, Integer> moodDAO = null;
+	private Dao<Symptom, Integer> symptomDAO = null;
 
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -36,6 +44,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		try {
 			Log.i(DatabaseHelper.class.getName(), "onCreate");
 			TableUtils.createTable(connectionSource, Lady.class);
+			TableUtils.createTable(connectionSource, Record.class);
+			TableUtils.createTable(connectionSource, DateStatus.class);
+			TableUtils.createTable(connectionSource, Mood.class);
+			TableUtils.createTable(connectionSource, Symptom.class);
+
 
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
@@ -54,6 +67,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		try {
 			Log.i(DatabaseHelper.class.getName(), "onUpgrade");
 			TableUtils.dropTable(connectionSource, Lady.class, true);
+			TableUtils.dropTable(connectionSource, Record.class, true);
+			TableUtils.dropTable(connectionSource, DateStatus.class, true);
+			TableUtils.dropTable(connectionSource, Mood.class, true);
+			TableUtils.dropTable(connectionSource, Symptom.class, true);
 			// after we drop the old databases, we create the new ones
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
@@ -69,6 +86,30 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		return ladyDAO;
 	}
 
+	public Dao<Record, Integer> getRecordDao() throws SQLException{
+		if(recordDAO == null){
+			recordDAO = getDao(Record.class);
+		}
+		return recordDAO;
+	}
+	public Dao<DateStatus, Integer> getDateStatusDao() throws SQLException{
+		if(dateStatusDAO == null){
+			dateStatusDAO = getDao(DateStatus.class);
+		}
+		return dateStatusDAO;
+	}
+	public Dao<Mood, Integer> getMoodDAO() throws SQLException{
+		if(moodDAO == null){
+			moodDAO = getDao(Mood.class);
+		}
+		return moodDAO;
+	}
+	public Dao<Symptom, Integer> getSymptomDAO() throws SQLException{
+		if(symptomDAO == null){
+			symptomDAO = getDao(Symptom.class);
+		}
+		return symptomDAO;
+	}
 
 	/**
 	 * Close the database connections and clear any cached DAOs.
@@ -77,5 +118,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void close() {
 		super.close();
 		ladyDAO = null;
+		recordDAO = null;
+		moodDAO = null;
+		dateStatusDAO = null;
+		symptomDAO = null;
 	}
 }

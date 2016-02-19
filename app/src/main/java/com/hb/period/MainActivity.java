@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.hb.period.Enums.MoodStatus;
 import com.hb.period.database.DataManager;
 import com.hb.period.database.DatabaseHelper;
 import com.hb.period.entities.Lady;
@@ -61,8 +62,14 @@ public class MainActivity extends AppCompatActivity
 
 
         dataManager.createLady(lady);
+//        Toast.makeText(this, dataManager.getLady().getCycleLength() + "", Toast.LENGTH_LONG).show();
 
-        Toast.makeText(this, dataManager.getLady().getCycleLength() + "", Toast.LENGTH_LONG).show();
+/**
+ * Hervee enum-iin name avah bol MoodStatus.Bored
+ * Hervee enum-iin id avah bol MoodStatus.Bored.getMoodStatus()
+ */
+            Toast.makeText(this, MoodStatus.Bored.getMoodStatus() + "", Toast.LENGTH_LONG).show();
+
 
     }
 

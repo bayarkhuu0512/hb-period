@@ -2,12 +2,19 @@ package com.hb.period.entities;
 
 import com.j256.ormlite.field.DatabaseField;
 
+import java.util.Date;
+
 /**
  * Created by bayarkhuu on 2/18/2016.
+ *
+ * Updated by Altanchimeg on 02/19/2016.
  */
 public class Lady {
     @DatabaseField(generatedId = true)
     private int id;
+
+    @DatabaseField
+    private String name;
 
     @DatabaseField
     private int periodLength;
@@ -18,12 +25,24 @@ public class Lady {
     @DatabaseField
     private int passCode;
 
+    @DatabaseField
+    private Date birthDate;
+
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getPeriodLength() {
@@ -48,5 +67,13 @@ public class Lady {
 
     public void setPassCode(int passCode) {
         this.passCode = passCode;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 }
