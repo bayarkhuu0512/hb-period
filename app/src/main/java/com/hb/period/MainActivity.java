@@ -14,14 +14,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.hb.period.Enums.MoodStatus;
+import com.hb.period.entities.Record;
+import com.hb.period.enums.MoodStatus;
 import com.hb.period.database.DataManager;
-import com.hb.period.database.DatabaseHelper;
 import com.hb.period.entities.Lady;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.Dao;
 
-import java.sql.SQLException;
+import org.joda.time.DateTime;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -68,7 +66,14 @@ public class MainActivity extends AppCompatActivity
  * Hervee enum-iin name avah bol MoodStatus.Bored
  * Hervee enum-iin id avah bol MoodStatus.Bored.getMoodStatus()
  */
-            Toast.makeText(this, MoodStatus.Bored.getMoodStatus() + "", Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, MoodStatus.Bored.getMoodStatus() + "", Toast.LENGTH_LONG).show();
+
+        Record record = new Record();
+        DateTime dt = new DateTime();
+        record.setDate(dt);
+        record.setMood(MoodStatus.Superhappy);
+        dataManager.createRecord(record);
+        Toast.makeText(this, dataManager.getRecord().getMood().getMoodStatus() + "", Toast.LENGTH_LONG).show();
 
 
     }

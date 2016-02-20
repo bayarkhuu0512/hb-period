@@ -1,6 +1,11 @@
 package com.hb.period.entities;
 
+import com.hb.period.enums.Flow;
+import com.hb.period.enums.MoodStatus;
+import com.hb.period.enums.Symptoms;
 import com.j256.ormlite.field.DatabaseField;
+
+import org.joda.time.DateTime;
 
 import java.util.Date;
 
@@ -12,13 +17,16 @@ public class Record {
     private int id;
 
     @DatabaseField
-    private int dateStatusID;
+    private boolean isPeriod;
 
     @DatabaseField
-    private int moodID;
+    private MoodStatus mood;
 
     @DatabaseField
-    private int symptomsID;
+    private Symptoms symptom;
+
+    @DatabaseField
+    private Flow flow;
 
     @DatabaseField
     private boolean takeMedicine;
@@ -27,7 +35,7 @@ public class Record {
     private String note;
 
     @DatabaseField
-    private Date date;
+    private DateTime date;
 
     public int getId() {
         return id;
@@ -37,28 +45,36 @@ public class Record {
         this.id = id;
     }
 
-    public int getDateStatusID() {
-        return dateStatusID;
+    public boolean isPeriod() {
+        return isPeriod;
     }
 
-    public void setDateStatusID(int dateStatusID) {
-        this.dateStatusID = dateStatusID;
+    public void setIsPeriod(boolean isPeriod) {
+        this.isPeriod = isPeriod;
     }
 
-    public int getMoodID() {
-        return moodID;
+    public Symptoms getSymptom() {
+        return symptom;
     }
 
-    public void setMoodID(int moodID) {
-        this.moodID = moodID;
+    public void setSymptom(Symptoms symptom) {
+        this.symptom = symptom;
     }
 
-    public int getSymptomsID() {
-        return symptomsID;
+    public MoodStatus getMood() {
+        return mood;
     }
 
-    public void setSymptomsID(int symptomsID) {
-        this.symptomsID = symptomsID;
+    public void setMood(MoodStatus mood) {
+        this.mood = mood;
+    }
+
+    public Flow getFlow() {
+        return flow;
+    }
+
+    public void setFlow(Flow flow) {
+        this.flow = flow;
     }
 
     public boolean isTakeMedicine() {
@@ -77,11 +93,11 @@ public class Record {
         this.note = note;
     }
 
-    public Date getDate() {
+    public DateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(DateTime date) {
         this.date = date;
     }
 }

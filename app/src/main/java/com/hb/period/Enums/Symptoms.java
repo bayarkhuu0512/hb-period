@@ -1,4 +1,4 @@
-package com.hb.period.Enums;
+package com.hb.period.enums;
 
 /**
  * Created by Altanchimeg on 2/19/2016.
