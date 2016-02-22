@@ -3,6 +3,7 @@ package com.hb.period;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,6 +21,12 @@ import com.hb.period.database.DataManager;
 import com.hb.period.entities.Lady;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeFieldType;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -55,26 +62,29 @@ public class MainActivity extends AppCompatActivity
         Lady lady = new Lady();
         lady.setCycleLength(30);
         lady.setPeriodLength(7);
+        lady.setName("Altanchimeg");
 
         dataManager = new DataManager(this);
-
-
         dataManager.createLady(lady);
 //        Toast.makeText(this, dataManager.getLady().getCycleLength() + "", Toast.LENGTH_LONG).show();
 
-/**
- * Hervee enum-iin name avah bol MoodStatus.Bored
- * Hervee enum-iin id avah bol MoodStatus.Bored.getMoodStatus()
- */
-//            Toast.makeText(this, MoodStatus.Bored.getMoodStatus() + "", Toast.LENGTH_LONG).show();
-
         Record record = new Record();
-        DateTime dt = new DateTime();
+        DateTime dt = DateTime.now();
         record.setDate(dt);
         record.setMood(MoodStatus.Superhappy);
         dataManager.createRecord(record);
-        Toast.makeText(this, dataManager.getRecord().getMood().getMoodStatus() + "", Toast.LENGTH_LONG).show();
+        Toast.makeText(this,dataManager.getRecord().getDate().toString() + "", Toast.LENGTH_LONG).show();
 
+        DateTime startDate = record.getDate();
+        for(int i=0; i<3;i++){
+            for(int j=0; j<lady.getPeriodLength(); j++){
+                Log.d("PERIOD", "Period day is: "+ startDate.plusDays(j));
+            }
+            for(int k=0; k<5;k++){
+                Log.d("PERIOD", "       Ovulation day is: "+ startDate.plusDays(12 + k));
+            }
+           startDate = startDate.plusDays(lady.getCycleLength());
+        }
 
     }
 
