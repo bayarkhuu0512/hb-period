@@ -22,16 +22,22 @@ import com.hb.period.entities.Lady;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeFieldType;
+import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     DataManager dataManager;
+    public List<LocalDate> recordPeriodList = new ArrayList<LocalDate>();
+    public List<LocalDate> recordOvulationList = new ArrayList<LocalDate>();
+    public int monthNumber = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +66,9 @@ public class MainActivity extends AppCompatActivity
 
 
         Lady lady = new Lady();
-        lady.setCycleLength(30);
+        lady.setCycleLength(28);
         lady.setPeriodLength(7);
+       // lady.setBirthDate(LocalDate.parse("1992/04/22"));
         lady.setName("Altanchimeg");
 
         dataManager = new DataManager(this);
@@ -69,25 +76,49 @@ public class MainActivity extends AppCompatActivity
 //        Toast.makeText(this, dataManager.getLady().getCycleLength() + "", Toast.LENGTH_LONG).show();
 
         Record record = new Record();
-        DateTime dt = DateTime.now();
+        LocalDate dt = LocalDate.now();
         record.setDate(dt);
         record.setMood(MoodStatus.Superhappy);
         dataManager.createRecord(record);
-        Toast.makeText(this,dataManager.getRecord().getDate().toString() + "", Toast.LENGTH_LONG).show();
+        Toast.makeText(this,record.getDate() + "", Toast.LENGTH_LONG).show();
 
-        DateTime startDate = record.getDate();
-        for(int i=0; i<3;i++){
-            for(int j=0; j<lady.getPeriodLength(); j++){
-                Log.d("PERIOD", "Period day is: "+ startDate.plusDays(j));
-            }
-            for(int k=0; k<5;k++){
-                Log.d("PERIOD", "       Ovulation day is: "+ startDate.plusDays(12 + k));
-            }
-           startDate = startDate.plusDays(lady.getCycleLength());
+        LocalDate startDate = record.getDate();
+        monthNumber = startDate.getMonthOfYear();
+
+        while(startDate.getMonthOfYear()<12){
+                for (int j = 0; j < lady.getPeriodLength(); j++) {
+                    //Log.d("PERIOD", "Period day is: " + startDate.plusDays(j));
+                    recordPeriodList.add(startDate.plusDays(j));
+                }
+                startDate = startDate.plusDays(lady.getCycleLength());
+                for (int k = 6; k >= 0; k--) {
+                    //Log.d("PERIOD", "       Ovulation day is: " + startDate.minusDays(14 + k));
+                    recordOvulationList.add(startDate.minusDays(14 + k));
+                }
         }
 
     }
 
+    public void  btn_next(View v){
+        monthNumber +=1;
+        changeCalendar(monthNumber);
+    }
+    public void btn_previous(View v){
+        monthNumber -=1;
+        changeCalendar(monthNumber);
+    }
+
+    public void changeCalendar(int monthNum){
+        for(int i=0; i<recordPeriodList.size(); i++)
+            if(recordPeriodList.get(i).getMonthOfYear()== monthNum)
+                Log.d("PERIOD", "Period day is: " + recordPeriodList.get(i));
+        for(int i=0; i<recordOvulationList.size(); i++){
+            if(recordOvulationList.get(i).getMonthOfYear()== monthNum)
+                Log.d("PERIOD", "   Ovulation day is: " + recordOvulationList.get(i));
+
+
+        }
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

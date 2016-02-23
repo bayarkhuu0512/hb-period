@@ -6,6 +6,7 @@ import com.hb.period.enums.Symptoms;
 import com.j256.ormlite.field.DatabaseField;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import java.util.Date;
 
@@ -35,7 +36,7 @@ public class Record {
     private String note;
 
     @DatabaseField
-    private DateTime date;
+    private LocalDate date;
 
     public int getId() {
         return id;
@@ -93,11 +94,11 @@ public class Record {
         this.note = note;
     }
 
-    public DateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(DateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }

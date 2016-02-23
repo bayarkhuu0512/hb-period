@@ -2,6 +2,8 @@ package com.hb.period.entities;
 
 import com.j256.ormlite.field.DatabaseField;
 
+import org.joda.time.LocalDate;
+
 import java.util.Date;
 
 /**
@@ -26,7 +28,7 @@ public class Lady {
     private int passCode;
 
     @DatabaseField
-    private Date birthDate;
+    private LocalDate birthDate;
 
 
     public int getId() {
@@ -69,11 +71,11 @@ public class Lady {
         this.passCode = passCode;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 }
