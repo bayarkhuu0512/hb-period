@@ -66,9 +66,8 @@ public class MainActivity extends AppCompatActivity
 
 
         Lady lady = new Lady();
-        lady.setCycleLength(28);
+        lady.setCycleLength(30);
         lady.setPeriodLength(7);
-       // lady.setBirthDate(LocalDate.parse("1992/04/22"));
         lady.setName("Altanchimeg");
 
         dataManager = new DataManager(this);

@@ -1,5 +1,49 @@
 <resources>
-    <string name="app_name">HB Period</string>
+    <string name="app_name">Lady</string>
+
+    <!-- Month names -->
+    <string name="month1">Нэгдүгээр сар</string>
+    <string name="month2">Хоёрдугаар сар</string>
+    <string name="month3">Гуравдугаар сар</string>
+    <string name="month4">Дөрөвдүгээр сар</string>
+    <string name="month5">Тавдугаар сар</string>
+    <string name="month6">Зургаадугаар сар</string>
+    <string name="month7">Долоодугаар сар</string>
+    <string name="month8">Наймдугаар сар</string>
+    <string name="month9">Есдүгээр сар</string>
+    <string name="month10">Аравдугаар сар</string>
+    <string name="month11">Арваннэгдүгээр сар</string>
+    <string name="month12">Арванхоёрдугаар сар</string>
+
+    <!-- Registration part -->
+    <string name="enterName">Таны нэрийг хэн гэдэг бэ?</string>
+    <string name="name">Нэр</string>
+    <string name="enterPasscode">Нэвтрэх нууц кодоо оруулна уу? /Зөвхөн 4 оронтой/</string>
+    <string name="passcode">Нууц код</string>
+    <string name="welcomeText">Тавтай морилно уу, </string>
+    <string name="helloText">Сайн уу, </string>
+    <string name="enterCycleLength">Сарын тэмдэгийн мөчлөг</string>
+    <string name="enterPeriodLength">Сарын тэмдэг үргэлжлэх хугацаа</string>
+    <string name="enterBirthdate">Төрсөн огноо</string>
+    <string name="enterLastdayofPeriod">Сүүлийн сарын тэмдэгийн эхний өдөр</string>
+    <string name="cycle">Мөчлөг</string>
+    <string name="period">Үргэлжлэх хугацаа</string>
+    <string name="birthdate">Төрсөн огноо</string>
+    <string name="lastPeriod">Сүүлийн сарын тэмдэг ирсэн</string>
+
+    <!-- Buttons -->
+    <string name="backBtn">Буцах</string>
+    <string name="nextBtn">Үргэлжлүүлэх</string>
+    <string name="startBtn">Эхэлцгээе!</string>
+
+    <!--  Calendar info -->
+    <string name="preiodDay">Сарын тэмдэг ирсэн</string>
+    <string name="periodForecast">Сарын тэмдэг ирэх</string>
+    <string name="fertile">Жирэмслэх магадлалтай</string>
+    <string name="ovulation">Жирэмслэх өндөр магадлалтай</string>
+
+    <!--   -->
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
