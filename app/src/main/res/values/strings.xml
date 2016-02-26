@@ -37,13 +37,18 @@
     <string name="startBtn">Эхэлцгээе!</string>
 
     <!--  Calendar info -->
-    <string name="preiodDay">Сарын тэмдэг ирсэн</string>
+    <string name="periodDay">Сарын тэмдэг ирсэн</string>
     <string name="periodForecast">Сарын тэмдэг ирэх</string>
     <string name="fertile">Жирэмслэх магадлалтай</string>
     <string name="ovulation">Жирэмслэх өндөр магадлалтай</string>
 
-    <!--   -->
-
+    <!-- Others  -->
+    <string name="today">Өнөөдөр</string>
+    <string name="periodMain">Сарын тэмдгийн</string>
+    <string name="whereText">дахь</string>
+    <string name="day">өдөр</string>
+    <string name="nextFertile">дараагийн жирэмслэх магадлалтай</string>
+    <string name="nextPeriod">дараагийн сарын тэмдэг ирэх</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

@@ -14,9 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hb.period.adapter.CalendarAdapter;
 import com.hb.period.entities.Record;
 import com.hb.period.enums.MoodStatus;
 import com.hb.period.database.DataManager;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity
     public List<LocalDate> recordOvulationList = new ArrayList<LocalDate>();
     public int monthNumber = 1;
     private Typeface mogul_wolfgang;
+    private Typeface roboto_light;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +57,17 @@ public class MainActivity extends AppCompatActivity
 
         mogul_wolfgang = Typeface.createFromAsset(getAssets(),
                 Constants.MOGUL_WOLFGANG);
+        roboto_light = Typeface.createFromAsset(getAssets(),
+                Constants.ROBOTO_LIGHT);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+      /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -106,9 +112,39 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        TextView helloWorld = (TextView) findViewById(R.id.helloWorld);
-        helloWorld.setText(prefManager.getUserName());
-        helloWorld.setTypeface(mogul_wolfgang);
+        TextView todayDate = (TextView) findViewById(R.id.todayDate);
+        todayDate.setText(getString(R.string.today)+" "+dt);
+        todayDate.setTypeface(roboto_light);
+
+        TextView periodMain = (TextView) findViewById(R.id.periodMain);
+        periodMain.setText(getString(R.string.periodMain));
+        periodMain.setTypeface(roboto_light);
+
+        TextView todayText = (TextView) findViewById(R.id.todayNumber);
+        todayText.setText("6"+getString(R.string.whereText));
+        todayText.setTypeface(mogul_wolfgang);
+        todayText.setTextSize(40);
+
+        TextView dayText = (TextView) findViewById(R.id.dayText);
+        dayText.setText(getString(R.string.day));
+        dayText.setTypeface(roboto_light);
+
+        TextView month = (TextView) findViewById(R.id.monthText);
+        month.setText(getString(R.string.month4));
+        month.setTypeface(mogul_wolfgang);
+        month.setTextSize(30);
+
+
+       /* GridView gridview = (GridView) findViewById(R.id.gridview);
+        gridview.setAdapter(new CalendarAdapter(this));
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                Toast.makeText(MainActivity.this, "" + position,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });*/
     }
 
     public void btn_next(View v) {

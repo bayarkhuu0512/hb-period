@@ -27,6 +27,7 @@ public interface Constants {
 
     // Fonts
     public static String MOGUL_WOLFGANG = "fonts/Mogul Wolfgang Amadeus Mozart.ttf";
+    public static String ROBOTO_LIGHT = "fonts/Roboto-Light.ttf";
 
 
 }
