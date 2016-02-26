@@ -1,5 +1,6 @@
 package com.hb.period;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,12 +14,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hb.period.entities.Record;
 import com.hb.period.enums.MoodStatus;
 import com.hb.period.database.DataManager;
 import com.hb.period.entities.Lady;
+import com.hb.period.utils.Constants;
+import com.hb.period.utils.PrefManager;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeFieldType;
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity
     public List<LocalDate> recordPeriodList = new ArrayList<LocalDate>();
     public List<LocalDate> recordOvulationList = new ArrayList<LocalDate>();
     public int monthNumber = 1;
+    private Typeface mogul_wolfgang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mogul_wolfgang = Typeface.createFromAsset(getAssets(),
+                Constants.MOGUL_WOLFGANG);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +76,9 @@ public class MainActivity extends AppCompatActivity
         Lady lady = new Lady();
         lady.setCycleLength(30);
         lady.setPeriodLength(7);
-        lady.setName("Altanchimeg");
+        PrefManager prefManager = new PrefManager(this);
+        prefManager.setUserName("Altanchimeg");
+        prefManager.setPassCode(1234);
 
         dataManager = new DataManager(this);
         dataManager.createLady(lady);
@@ -79,45 +89,50 @@ public class MainActivity extends AppCompatActivity
         record.setDate(dt);
         record.setMood(MoodStatus.Superhappy);
         dataManager.createRecord(record);
-        Toast.makeText(this,record.getDate() + "", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, record.getDate() + "", Toast.LENGTH_LONG).show();
 
         LocalDate startDate = record.getDate();
         monthNumber = startDate.getMonthOfYear();
 
-        while(startDate.getMonthOfYear()<12){
-                for (int j = 0; j < lady.getPeriodLength(); j++) {
-                    //Log.d("PERIOD", "Period day is: " + startDate.plusDays(j));
-                    recordPeriodList.add(startDate.plusDays(j));
-                }
-                startDate = startDate.plusDays(lady.getCycleLength());
-                for (int k = 6; k >= 0; k--) {
-                    //Log.d("PERIOD", "       Ovulation day is: " + startDate.minusDays(14 + k));
-                    recordOvulationList.add(startDate.minusDays(14 + k));
-                }
+        while (startDate.getMonthOfYear() < 12) {
+            for (int j = 0; j < lady.getPeriodLength(); j++) {
+                //Log.d("PERIOD", "Period day is: " + startDate.plusDays(j));
+                recordPeriodList.add(startDate.plusDays(j));
+            }
+            startDate = startDate.plusDays(lady.getCycleLength());
+            for (int k = 6; k >= 0; k--) {
+                //Log.d("PERIOD", "       Ovulation day is: " + startDate.minusDays(14 + k));
+                recordOvulationList.add(startDate.minusDays(14 + k));
+            }
         }
 
+        TextView helloWorld = (TextView) findViewById(R.id.helloWorld);
+        helloWorld.setText(prefManager.getUserName());
+        helloWorld.setTypeface(mogul_wolfgang);
     }
 
-    public void  btn_next(View v){
-        monthNumber +=1;
-        changeCalendar(monthNumber);
-    }
-    public void btn_previous(View v){
-        monthNumber -=1;
+    public void btn_next(View v) {
+        monthNumber += 1;
         changeCalendar(monthNumber);
     }
 
-    public void changeCalendar(int monthNum){
-        for(int i=0; i<recordPeriodList.size(); i++)
-            if(recordPeriodList.get(i).getMonthOfYear()== monthNum)
+    public void btn_previous(View v) {
+        monthNumber -= 1;
+        changeCalendar(monthNumber);
+    }
+
+    public void changeCalendar(int monthNum) {
+        for (int i = 0; i < recordPeriodList.size(); i++)
+            if (recordPeriodList.get(i).getMonthOfYear() == monthNum)
                 Log.d("PERIOD", "Period day is: " + recordPeriodList.get(i));
-        for(int i=0; i<recordOvulationList.size(); i++){
-            if(recordOvulationList.get(i).getMonthOfYear()== monthNum)
+        for (int i = 0; i < recordOvulationList.size(); i++) {
+            if (recordOvulationList.get(i).getMonthOfYear() == monthNum)
                 Log.d("PERIOD", "   Ovulation day is: " + recordOvulationList.get(i));
 
 
         }
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
