@@ -11,4 +11,8 @@
     <color name="textNotImportant">#9f9f9f</color>
 
     <color name="windowBackground">#ffffff</color>
+
+    <color name="bgOvalPeriodColor">#f7cac9</color>
+    <color name="bgOvalPeriodColorFocused">#80f7cac9</color>
+
 </resources>
