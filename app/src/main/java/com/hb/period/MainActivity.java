@@ -1,38 +1,38 @@
 package com.hb.period;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hb.period.entities.Record;
-import com.hb.period.enums.MoodStatus;
 import com.hb.period.database.DataManager;
+import com.hb.period.entities.Day;
 import com.hb.period.entities.Lady;
+import com.hb.period.entities.Record;
+import com.hb.period.enums.DayType;
+import com.hb.period.enums.MoodStatus;
+import com.hb.period.ui.CalendarGridViewAdapter;
 import com.hb.period.utils.Constants;
 import com.hb.period.utils.PrefManager;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeFieldType;
 import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -41,8 +41,10 @@ public class MainActivity extends AppCompatActivity
     DataManager dataManager;
     public List<LocalDate> recordPeriodList = new ArrayList<LocalDate>();
     public List<LocalDate> recordOvulationList = new ArrayList<LocalDate>();
+    private List<Day> dayList = new ArrayList<Day>();
     public int monthNumber = 1;
     private Typeface mogul_wolfgang;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity
 
         mogul_wolfgang = Typeface.createFromAsset(getAssets(),
                 Constants.MOGUL_WOLFGANG);
-
+        context = this;
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +87,9 @@ public class MainActivity extends AppCompatActivity
 //        Toast.makeText(this, dataManager.getLady().getCycleLength() + "", Toast.LENGTH_LONG).show();
 
         Record record = new Record();
-        LocalDate dt = LocalDate.now();
+        Calendar c1 = Calendar.getInstance();
+        c1.set(Calendar.DAY_OF_MONTH,25);
+        LocalDate dt = LocalDate.fromCalendarFields(c1);
         record.setDate(dt);
         record.setMood(MoodStatus.Superhappy);
         dataManager.createRecord(record);
@@ -98,18 +102,32 @@ public class MainActivity extends AppCompatActivity
             for (int j = 0; j < lady.getPeriodLength(); j++) {
                 //Log.d("PERIOD", "Period day is: " + startDate.plusDays(j));
                 recordPeriodList.add(startDate.plusDays(j));
+                addDay(startDate.plusDays(j), DayType.PERIOD);
             }
             startDate = startDate.plusDays(lady.getCycleLength());
             for (int k = 6; k >= 0; k--) {
                 //Log.d("PERIOD", "       Ovulation day is: " + startDate.minusDays(14 + k));
                 recordOvulationList.add(startDate.minusDays(14 + k));
+                addDay(startDate.minusDays(14 + k), DayType.OVULATION);
             }
         }
 
         TextView helloWorld = (TextView) findViewById(R.id.helloWorld);
         helloWorld.setText(prefManager.getUserName());
         helloWorld.setTypeface(mogul_wolfgang);
+
+        GridView calendarGridView = (GridView) findViewById(R.id.calendarGridView);
+        CalendarGridViewAdapter calendarGridViewAdapter = new CalendarGridViewAdapter(context, dayList);
+        calendarGridView.setAdapter(calendarGridViewAdapter);
     }
+
+    private void addDay(LocalDate date, DayType type) {
+        Day day = new Day();
+        day.setLocalDate(date);
+        day.setDayType(type);
+        dayList.add(day);
+    }
+
 
     public void btn_next(View v) {
         monthNumber += 1;
@@ -128,8 +146,6 @@ public class MainActivity extends AppCompatActivity
         for (int i = 0; i < recordOvulationList.size(); i++) {
             if (recordOvulationList.get(i).getMonthOfYear() == monthNum)
                 Log.d("PERIOD", "   Ovulation day is: " + recordOvulationList.get(i));
-
-
         }
     }
 
