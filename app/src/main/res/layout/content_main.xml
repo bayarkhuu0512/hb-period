@@ -40,6 +40,7 @@
     <GridView
         android:id="@+id/calendarGridView"
         android:layout_width="match_parent"
+        android:numColumns="7"
         android:layout_height="match_parent"></GridView>
 
 </LinearLayout>
