@@ -11,6 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.hb.period.MainActivity"
+
     tools:showIn="@layout/app_bar_main"
     android:background="@color/colorPrimary">
 
@@ -76,17 +77,19 @@
             style="@style/BgOvalPeriodStyle"
             android:onClick="btn_next"
             android:text="Next" />
+
     </android.support.v7.widget.LinearLayoutCompat>
 
-<GridView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/gridview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:columnWidth="90dp"
-    android:numColumns="auto_fit"
+    <GridView
+        android:id="@+id/calendarGridView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+   android:columnWidth="90dp"
+    android:numColumns="7
     android:verticalSpacing="10dp"
     android:horizontalSpacing="10dp"
     android:stretchMode="columnWidth"
     android:gravity="center"/>
+></GridView>
+
 </LinearLayout>

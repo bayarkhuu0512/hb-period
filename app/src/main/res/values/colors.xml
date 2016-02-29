@@ -15,4 +15,7 @@
     <color name="bgOvalPeriodColor">#f7cac9</color>
     <color name="bgOvalPeriodColorFocused">#80f7cac9</color>
 
+    <color name="bgOvalOvulationColor">#9f9f9f</color>
+    <color name="bgOvalOvulationColorFocused">#809f9f9f</color>
+
 </resources>
