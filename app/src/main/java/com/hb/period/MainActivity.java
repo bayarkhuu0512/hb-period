@@ -14,21 +14,16 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-<<<<<<< HEAD
 import android.widget.AdapterView;
-=======
 import android.view.View;
->>>>>>> origin/master
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-<<<<<<< HEAD
+
 import com.hb.period.adapter.CalendarAdapter;
 import com.hb.period.entities.Record;
 import com.hb.period.enums.MoodStatus;
-=======
->>>>>>> origin/master
 import com.hb.period.database.DataManager;
 import com.hb.period.entities.Day;
 import com.hb.period.entities.Lady;
@@ -104,7 +99,7 @@ public class MainActivity extends AppCompatActivity
 
         Record record = new Record();
         Calendar c1 = Calendar.getInstance();
-        c1.set(Calendar.DAY_OF_MONTH,25);
+        c1.set(Calendar.DAY_OF_MONTH, 25);
         LocalDate dt = LocalDate.fromCalendarFields(c1);
         record.setDate(dt);
         record.setMood(MoodStatus.Superhappy);
@@ -114,19 +109,19 @@ public class MainActivity extends AppCompatActivity
         LocalDate startDate = record.getDate();
         monthNumber = startDate.getMonthOfYear();
 
-        while (startDate.getMonthOfYear() < 12) {
-            for (int j = 0; j < lady.getPeriodLength(); j++) {
-                //Log.d("PERIOD", "Period day is: " + startDate.plusDays(j));
-                recordPeriodList.add(startDate.plusDays(j));
-                addDay(startDate.plusDays(j), DayType.PERIOD);
-            }
-            startDate = startDate.plusDays(lady.getCycleLength());
-            for (int k = 6; k >= 0; k--) {
-                //Log.d("PERIOD", "       Ovulation day is: " + startDate.minusDays(14 + k));
-                recordOvulationList.add(startDate.minusDays(14 + k));
-                addDay(startDate.minusDays(14 + k), DayType.OVULATION);
-            }
+//        while (startDate.getMonthOfYear() < 12) {
+        for (int j = 0; j < lady.getPeriodLength(); j++) {
+            //Log.d("PERIOD", "Period day is: " + startDate.plusDays(j));
+            recordPeriodList.add(startDate.plusDays(j));
+            addDay(startDate.plusDays(j), DayType.PERIOD);
         }
+        startDate = startDate.plusDays(lady.getCycleLength());
+        for (int k = 6; k >= 0; k--) {
+            //Log.d("PERIOD", "       Ovulation day is: " + startDate.minusDays(14 + k));
+            recordOvulationList.add(startDate.minusDays(14 + k));
+            addDay(startDate.minusDays(14 + k), DayType.OVULATION);
+        }
+        //      }
 
 
         TextView todayDate = (TextView) findViewById(R.id.todayDate);

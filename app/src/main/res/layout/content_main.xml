@@ -82,8 +82,7 @@
 
     <GridView
         android:id="@+id/calendarGridView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"        android:layout_height="match_parent"
    android:columnWidth="90dp"
     android:numColumns="7
     android:verticalSpacing="10dp"
