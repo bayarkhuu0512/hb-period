@@ -146,11 +146,6 @@ public class MainActivity extends AppCompatActivity
         month.setTypeface(mogul_wolfgang);
         month.setTextSize(30);
 
-
-        TextView helloWorld = (TextView) findViewById(R.id.helloWorld);
-        helloWorld.setText(prefManager.getUserName());
-        helloWorld.setTypeface(mogul_wolfgang);
-
         GridView calendarGridView = (GridView) findViewById(R.id.calendarGridView);
         CalendarGridViewAdapter calendarGridViewAdapter = new CalendarGridViewAdapter(context, dayList);
         calendarGridView.setAdapter(calendarGridViewAdapter);
